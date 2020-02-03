@@ -1,7 +1,7 @@
 apiVersion: appsody.dev/v1beta1
 kind: OpenLibertyApplication
 metadata:
-  name: service-b
+  name: microservice-b
 spec:
   applicationImage: appruntime/samples:consumer
   createKnativeService: false
