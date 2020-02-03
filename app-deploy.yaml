@@ -3,7 +3,7 @@ kind: OpenLibertyApplication
 metadata:
   name: microservice-b
 spec:
-  applicationImage: appruntime/samples:consumer
+  applicationImage: appruntime/samples:service-binding-consumer
   createKnativeService: false
   expose: true
   livenessProbe:
