@@ -25,6 +25,10 @@ spec:
       prometheus.io/scrape: "true"
     port: 9080
     type: NodePort
+    consumes:
+    - category: openapi
+      name: microservice-a
+      namespace: binding-demo
   stack: java-microprofile
   version: 1.0.0
 status: {}
