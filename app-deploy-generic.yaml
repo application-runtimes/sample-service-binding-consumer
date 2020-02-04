@@ -1,9 +1,9 @@
 apiVersion: appsody.dev/v1beta1
-kind: OpenLibertyApplication
+kind: RuntimeApplication
 metadata:
   name: microservice-b
 spec:
-  applicationImage: appruntime/samples:service-binding-consumer
+  applicationImage: service-binding-consumer
   createKnativeService: false
   expose: true
   livenessProbe:
@@ -26,9 +26,9 @@ spec:
     port: 9080
     type: NodePort
     consumes:
-    - category: openapi
-      name: microservice-a
-      namespace: binding-demo
+      - category: openapi
+        name: microservice-a
+        namespace: binding-demo
   stack: java-microprofile
   version: 1.0.0
 status: {}

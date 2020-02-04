@@ -1,0 +1,34 @@
+apiVersion: appsody.dev/v1beta1
+kind: OpenLibertyApplication
+metadata:
+  name: microservice-b
+spec:
+  applicationImage: service-binding-consumer
+  createKnativeService: false
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/live
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/ready
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+    port: 9080
+    type: NodePort
+    consumes:
+      - category: openapi
+        name: microservice-a
+        namespace: binding-demo
+  stack: java-microprofile
+  version: 1.0.0
+status: {}
