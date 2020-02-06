@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.NoSuchElementException;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -33,17 +34,14 @@ public class StarterResource {
     }
 
     @GET
-    @Path("/test")
-    @Produces(TEXT_PLAIN)
-    public String test() {
-        return "Testing!";
-    }
-
-    @GET
     @Path("/service")
     @Produces(TEXT_PLAIN)
     public String service() {
+        try {
         return "Calling serviceA at " + serviceA_URL.get() + ". Result: " + sendGet(serviceA_URL.get());
+        } catch (NoSuchElementException e) {
+            return "Could not find the service provider.";
+        }
     }
 
     	// HTTP GET request

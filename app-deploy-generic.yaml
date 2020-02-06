@@ -3,7 +3,7 @@ kind: RuntimeApplication
 metadata:
   name: microservice-b
 spec:
-  applicationImage: service-binding-consumer
+  applicationImage: appruntims/samples:service-binding-consumer
   createKnativeService: false
   expose: true
   livenessProbe:

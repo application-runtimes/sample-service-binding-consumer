@@ -7,30 +7,33 @@
 
     <parent><!--required parent POM-->
         <groupId>dev.appsody</groupId>
-        <artifactId>java-microprofile</artifactId>
-        <version>[0.2, 0.3)</version>
+        <artifactId>java-openliberty</artifactId>
+        <version>[0.1, 0.2)</version>
         <relativePath/>
     </parent>
 
-    <groupId>dev.appsody.starter.java-microprofile</groupId>
+    <groupId>dev.appsody.starter.java-openliberty</groupId>
     <artifactId>starter-app</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <dependencies>
-        <!-- Open Liberty Features -->
+        <!-- Aggregate of MicroProfile APIs -->
         <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>microProfile-3.0</artifactId>
-            <type>esa</type>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>3.2</version>
+            <type>pom</type>
+            <scope>provided</scope>
         </dependency>
         <!-- For tests -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.6.0</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-rs-client</artifactId>
@@ -54,25 +57,25 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.3.1</version>
-	    <scope>test</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-core</artifactId>
             <version>2.3.0.1</version>
-	    <scope>test</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
             <version>2.3.2</version>
-	    <scope>test</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
             <version>1.1.1</version>
-	    <scope>test</scope>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -90,21 +93,11 @@
             </plugin>
             <!-- Enable liberty-maven plugin -->
             <plugin>
-                <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
                 <configuration>
-                    <assemblyArtifact>
-                        <groupId>${liberty.groupId}</groupId>
-                        <artifactId>${liberty.artifactId}</artifactId>
-                        <version>${version.openliberty-runtime}</version>
-                        <type>zip</type>
-                    </assemblyArtifact>
-                    <serverName>defaultServer</serverName>
                     <stripVersion>true</stripVersion>
-                    <configFile>src/main/liberty/config/server.xml</configFile>
-                    <looseApplication>true</looseApplication>
-                    <packageFile>${package.file}</packageFile>
-                    <include>${packaging.type}</include>
+                    <serverStartTimeout>120</serverStartTimeout>
                     <bootstrapProperties>
                         <default.http.port>${http.port}</default.http.port>
                         <default.https.port>${https.port}</default.https.port>
@@ -143,7 +136,7 @@
                 <executions>
                     <execution>
                         <phase>integration-test</phase>
-                        <id>integration-test</id>
+                        <id>it-exec</id>
                         <goals>
                             <goal>integration-test</goal>
                         </goals>
